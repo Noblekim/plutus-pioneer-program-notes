@@ -43,7 +43,7 @@ import PlutusTx
 -- Define values of the 'Data' type.
 I 42 -- Integer
 
--- Display the type
+-- Display the type.
 :t I 42
 
 -- Activate the OverloadedStrings extension.
@@ -54,3 +54,29 @@ B "Haskell" -- ByteString
 -- Construct a 'Map'.
 Map [(I 32, B "Haskell"), (List [I 0], I 1000)]
 ```
+
+### Gift Module
+
+The module Gift, in the Gift.hs file, allows users to send ada to a script address and anyone can redeem those ada.
+
+The code is commented to explain what it does.
+
+#### Playground
+
+The playground shows the two endpoints under "Available functions".
+
+### Burn Module
+
+The validator can result in an error by changing the validator to:
+
+```hs
+mkValidator _ _ _ = error ()
+```
+
+The 'error' function is not from the standard Haskell prelude. 'PlutusTx.Prelude' overrides the standard prelude. The GHC extension 'NoImplicitPrelude' stops the standard prelude from being loaded.
+
+Since the validator always ends in an error, ada sent to the script address are inaccessible.
+
+### FortyTwo Module
+
+The script validates only if the redeemer is 42.
