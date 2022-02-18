@@ -80,3 +80,25 @@ Since the validator always ends in an error, ada sent to the script address are 
 ### FortyTwo Module
 
 The script validates only if the redeemer is 42.
+
+The 'ToData' class has a method 'toBuiltinData' that converts a type to 'BuiltinData'.
+The 'FromData' class does the opposite.
+
+REPL
+
+```hs
+import PlutusTx
+import PlutusTx.IsData.Class
+
+toData () -- Constr 0 []
+fromData (Constr 0 []) :: Maybe () -- Just ()
+
+toData (42 :: Int) -- I 42
+fromData (I 42) :: Maybe Integer -- Just 42
+```
+
+The unstable 'MakeIsData' does not guarantee which constructor is used. The stable version requires an explicit definition of which constructor to use.
+
+### Homework
+
+The scripts should validate if the two Booleans in the validator are the same.
